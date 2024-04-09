@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonInitializer\CommonInitializer.csproj" />
+    <ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
+    <ProjectReference Include="..\KK.JWT\KK.JWT.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+		<PackageReference Include="Zack.AnyDBConfigProvider" Version="1.1.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="4.1.1-dev-00241" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\KK.ASPNETCORE\KK.ASPNETCORE.csproj" />
+	  <ProjectReference Include="..\KK.Commons\KK.Commons.csproj" />
+	  <ProjectReference Include="..\KK.DomainCommons\KK.DomainCommons.csproj" />
+	  <ProjectReference Include="..\KK.EventBus\KK.EventBus.csproj" />
+	  <ProjectReference Include="..\KK.Infrastructure\KK.Infrastructure.csproj" />
+	  <ProjectReference Include="..\KK.JWT\KK.JWT.csproj" />
+	</ItemGroup>
+</Project>
