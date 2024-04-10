@@ -80,6 +80,11 @@ public static class WebApplicationBuilderExtensions
             .AllowAnyMethod()
             .AllowCredentials());
         });
+
+        services.Configure<JsonOptions>(opt =>
+        {
+            opt.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+        });
         //添加Serilog作为日志
         services.AddLogging(builder =>
         {

@@ -1,3 +1,10 @@
+using CommonInitializer;
+using KK.ASPNETCORE;
+using Listening.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
+
 namespace Listening.Main.WebApi
 {
     public class Program
@@ -6,12 +13,24 @@ namespace Listening.Main.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
-
             // Add services to the container.
-
+            builder.ConfigureExtraServices(new InitializerOptions()
+            {
+                EventBusQueueName = "Listening.Main.WebApi",
+                LogFilePath = "logs/listeningMain.log"
+            }, Assembly.Load("Listening.Domain"), Assembly.GetExecutingAssembly(), Assembly.Load("Listening.Infrastructure"));
+            builder.Services.AddDbContext<ListeningDbContext>(opt =>
+            {
+                string connStr = builder.Configuration.GetConnectionString("Default");
+                opt.UseSqlServer(connStr);
+            });
+            builder.Services.AddStackExchangeRedisCache(opt =>
+            {
+                opt.InstanceName = "listeningMain_";
+                opt.Configuration = builder.Configuration.GetValue<string>("Redis:ConnStr");
+            });
+            builder.Services.AddScoped<IDistributeCacheHelper, DistributedCacheHelper>();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -23,9 +42,7 @@ namespace Listening.Main.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseAuthorization();
-
+            app.UseKKDefault();
 
             app.MapControllers();
 

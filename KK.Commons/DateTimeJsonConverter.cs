@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace KK.Commons
 {
-    internal class DateTimeJsonConverter : JsonConverter<DateTime>
+    public class DateTimeJsonConverter : JsonConverter<DateTime>
     {
         private string format;
 
